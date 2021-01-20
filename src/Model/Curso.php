@@ -2,7 +2,7 @@
 
 namespace Alura\Solid\Model;
 
-class Curso
+class Curso implements Pontuavel
 {
     private $nome;
     private $videos;
@@ -15,13 +15,14 @@ class Curso
         $this->feedbacks = [];
     }
 
-    public function receberFeedback(int $nota, ?string $depoimento): void
+    public function recuperarPontuacao(): int
     {
-        if ($nota < 9 && empty($depoimento)) {
-            throw new \DomainException('Depoimento obrigatório');
-        }
+        return 100;
+    }
 
-        $this->feedbacks[] = [$nota, $depoimento];
+    public function receberFeedback(Feedback $feedback): void
+    {
+        $this->feedbacks[] = $feedback;
     }
 
     public function adicionarVideo(Video $video)
